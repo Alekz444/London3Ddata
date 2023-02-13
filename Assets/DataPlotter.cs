@@ -108,6 +108,23 @@ public class DataPlotter : MonoBehaviour
             // Assigns name to the prefab
             //dataPoint.transform.name = dataPointName;
         }
+
+        Instantiate(
+                    PointPrefab,
+                    new Vector3(16000, 150, 40000), //* plotScale,
+                    Quaternion.identity);
+        Instantiate(
+                    PointPrefab,
+                    new Vector3(16000, 150, 41000), //* plotScale,
+                    Quaternion.identity);
+        Instantiate(
+                    PointPrefab,
+                    new Vector3(17000, 150, 40000), //* plotScale,
+                    Quaternion.identity);
+        Instantiate(
+                    PointPrefab,
+                    new Vector3(17000, 150, 41000), //* plotScale,
+                    Quaternion.identity);
     }
 
     private float FindMaxValue(string columnName)
