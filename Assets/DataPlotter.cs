@@ -44,7 +44,7 @@ public class DataPlotter : MonoBehaviour
 
         // Name variables
         xName = columns[columnX];
-        yName = columns[columnY];
+        //yName = columns[columnY];
         zName = columns[columnZ];
 
         for (var i = 0; i < dataList.Count; i++)
@@ -55,14 +55,14 @@ public class DataPlotter : MonoBehaviour
 
 
         // Get maxes of each axis
-        float xMax = FindMaxValue(xName);
-        float yMax = FindMaxValue(yName);
-        float zMax = FindMaxValue(zName);
+        //float xMax = FindMaxValue(xName);
+        //float yMax = FindMaxValue(yName);
+        //float zMax = FindMaxValue(zName);
 
         // Get minimums of each axis
-        float xMin = FindMinValue(xName);
-        float yMin = FindMinValue(yName);
-        float zMin = FindMinValue(zName);
+        //float xMin = FindMinValue(xName);
+        //float yMin = FindMinValue(yName);
+        //float zMin = FindMinValue(zName);
 
        
         
@@ -102,11 +102,12 @@ public class DataPlotter : MonoBehaviour
             // Assigns original values to dataPointName
             string dataPointName =
                 dataList[i][xName] + " "
-                + dataList[i][yName] + " "
+                //+ dataList[i][yName] + " "
+                + "10 "
                 + dataList[i][zName];
 
             // Assigns name to the prefab
-            //dataPoint.transform.name = dataPointName;
+            dataPoint.transform.name = dataPointName;
         }
 
         Instantiate(
@@ -119,11 +120,11 @@ public class DataPlotter : MonoBehaviour
                     Quaternion.identity);
         Instantiate(
                     PointPrefab,
-                    new Vector3(17000, 150, 40000), //* plotScale,
+                    new Vector3(15000, 150, 41000), //* plotScale,
                     Quaternion.identity);
         Instantiate(
                     PointPrefab,
-                    new Vector3(17000, 150, 41000), //* plotScale,
+                    new Vector3(15000, 150, 40000), //* plotScale,
                     Quaternion.identity);
     }
 
