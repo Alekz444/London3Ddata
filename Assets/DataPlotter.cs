@@ -15,11 +15,13 @@ public class DataPlotter : MonoBehaviour
     public int columnX = 0;
     public int columnY = 2;
     public int columnZ = 1;
+    public int columnC = 190;
 
     // Full column names
     public string xName; // eastings
     public string yName; // height
     public string zName; // northings
+    public string cName;
 
     // Instantiate prefab to plot data points
     public GameObject PointPrefab;
@@ -30,6 +32,7 @@ public class DataPlotter : MonoBehaviour
     // Tile Coordinates
     public int X = 500000; // easting of tile
     public int Y = 100000; // northing of tile
+    public String color;
 
     public float plotScale = 1;
 
@@ -46,13 +49,13 @@ public class DataPlotter : MonoBehaviour
         xName = columns[columnX];
         //yName = columns[columnY];
         zName = columns[columnZ];
+        cName = columns[columnC];
 
         for (var i = 0; i < dataList.Count; i++)
         {
             dataList[i][xName] = System.Convert.ToSingle(dataList[i][xName]); //- 500000;
             dataList[i][zName] = System.Convert.ToSingle(dataList[i][zName]); //- 100000;
         }
-
 
         // Get maxes of each axis
         //float xMax = FindMaxValue(xName);
@@ -95,6 +98,39 @@ public class DataPlotter : MonoBehaviour
                     PointPrefab,
                     new Vector3(x, y, z), //* plotScale,
                     Quaternion.identity);
+
+            // Change color of object according to csv
+            string color = dataList[i][cName].ToString();
+            if(color == "gray")
+            {
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.gray);
+            }
+            else if(color == "darkgreen")
+            {
+                Color newColor = new Color(14/255.0F, 164/255.0F, 29/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if(color == "green")
+            {
+                Color newColor = new Color(0/255.0F, 250/255.0F, 42/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if(color == "lightgreen")
+            {
+                Color newColor = new Color(201/ 255.0F, 255/ 255.0F, 118/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if (color == "orange")
+            {
+                Color newColor = new Color(255/ 255.0F, 162/ 255.0F, 0/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else
+            {
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
+            }
+
+            
 
             // Make dataPoint child of PointHolder object 
             //dataPoint.transform.parent = DataPointParent.transform;
