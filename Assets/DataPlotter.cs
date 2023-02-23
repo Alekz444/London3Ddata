@@ -86,7 +86,7 @@ public class DataPlotter : MonoBehaviour
 
 
             float x = System.Convert.ToSingle(dataList[i][xName]) - 500000;
-            float y = 10;
+            float y = 100;
             //float y = System.Convert.ToSingle(dataList[i][yName]);
             float z = System.Convert.ToSingle(dataList[i][zName]) - 100000;
             //Debug.Log("DATA POINT X IS: " + x);
@@ -110,14 +110,14 @@ public class DataPlotter : MonoBehaviour
                 Color newColor = new Color(14/255.0F, 164/255.0F, 29/255.0F);
                 dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
             }
-            else if(color == "green")
-            {
-                Color newColor = new Color(0/255.0F, 250/255.0F, 42/255.0F);
-                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
-            }
             else if(color == "lightgreen")
             {
-                Color newColor = new Color(201/ 255.0F, 255/ 255.0F, 118/255.0F);
+                Color newColor = new Color(93/255.0F, 255/255.0F, 81/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if(color == "yellow")
+            {
+                Color newColor = new Color(255/ 255.0F, 255/ 255.0F, 0/255.0F);
                 dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
             }
             else if (color == "orange")
@@ -133,7 +133,7 @@ public class DataPlotter : MonoBehaviour
             
 
             // Make dataPoint child of PointHolder object 
-            //dataPoint.transform.parent = DataPointParent.transform;
+            dataPoint.transform.parent = DataPointParent.transform;
 
             // Assigns original values to dataPointName
             string dataPointName =
@@ -148,20 +148,20 @@ public class DataPlotter : MonoBehaviour
 
         Instantiate(
                     PointPrefab,
-                    new Vector3(16000, 150, 40000), //* plotScale,
+                    new Vector3(16000, 100, 40000), //* plotScale,
                     Quaternion.identity);
-        Instantiate(
-                    PointPrefab,
-                    new Vector3(16000, 150, 41000), //* plotScale,
-                    Quaternion.identity);
-        Instantiate(
-                    PointPrefab,
-                    new Vector3(15000, 150, 41000), //* plotScale,
-                    Quaternion.identity);
-        Instantiate(
-                    PointPrefab,
-                    new Vector3(15000, 150, 40000), //* plotScale,
-                    Quaternion.identity);
+        //Instantiate(
+          //          PointPrefab,
+            //        new Vector3(16000, 150, 41000), //* plotScale,
+              //      Quaternion.identity);
+        //Instantiate(
+          //          PointPrefab,
+            //        new Vector3(15000, 150, 41000), //* plotScale,
+              //      Quaternion.identity);
+        //Instantiate(
+          //          PointPrefab,
+            //        new Vector3(15000, 150, 40000), //* plotScale,
+              //      Quaternion.identity);
     }
 
     private float FindMaxValue(string columnName)
