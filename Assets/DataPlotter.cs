@@ -15,11 +15,13 @@ public class DataPlotter : MonoBehaviour
     public int columnX = 0;
     public int columnY = 2;
     public int columnZ = 1;
+    public int columnC = 190;
 
     // Full column names
     public string xName; // eastings
     public string yName; // height
     public string zName; // northings
+    public string cName;
 
     // Instantiate prefab to plot data points
     public GameObject PointPrefab;
@@ -30,6 +32,7 @@ public class DataPlotter : MonoBehaviour
     // Tile Coordinates
     public int X = 500000; // easting of tile
     public int Y = 100000; // northing of tile
+    public String color;
 
     public float plotScale = 1;
 
@@ -44,8 +47,9 @@ public class DataPlotter : MonoBehaviour
 
         // Name variables
         xName = columns[columnX];
-        yName = columns[columnY];
+        //yName = columns[columnY];
         zName = columns[columnZ];
+        cName = columns[columnC];
 
         for (var i = 0; i < dataList.Count; i++)
         {
@@ -53,16 +57,15 @@ public class DataPlotter : MonoBehaviour
             dataList[i][zName] = System.Convert.ToSingle(dataList[i][zName]); //- 100000;
         }
 
-
         // Get maxes of each axis
-        float xMax = FindMaxValue(xName);
-        float yMax = FindMaxValue(yName);
-        float zMax = FindMaxValue(zName);
+        //float xMax = FindMaxValue(xName);
+        //float yMax = FindMaxValue(yName);
+        //float zMax = FindMaxValue(zName);
 
         // Get minimums of each axis
-        float xMin = FindMinValue(xName);
-        float yMin = FindMinValue(yName);
-        float zMin = FindMinValue(zName);
+        //float xMin = FindMinValue(xName);
+        //float yMin = FindMinValue(yName);
+        //float zMin = FindMinValue(zName);
 
        
         
@@ -83,7 +86,7 @@ public class DataPlotter : MonoBehaviour
 
 
             float x = System.Convert.ToSingle(dataList[i][xName]) - 500000;
-            float y = 10;
+            float y = 100;
             //float y = System.Convert.ToSingle(dataList[i][yName]);
             float z = System.Convert.ToSingle(dataList[i][zName]) - 100000;
             //Debug.Log("DATA POINT X IS: " + x);
@@ -96,18 +99,69 @@ public class DataPlotter : MonoBehaviour
                     new Vector3(x, y, z), //* plotScale,
                     Quaternion.identity);
 
+            // Change color of object according to csv
+            string color = dataList[i][cName].ToString();
+            if(color == "gray")
+            {
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.gray);
+            }
+            else if(color == "darkgreen")
+            {
+                Color newColor = new Color(14/255.0F, 164/255.0F, 29/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if(color == "lightgreen")
+            {
+                Color newColor = new Color(93/255.0F, 255/255.0F, 81/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if(color == "yellow")
+            {
+                Color newColor = new Color(255/ 255.0F, 255/ 255.0F, 0/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else if (color == "orange")
+            {
+                Color newColor = new Color(255/ 255.0F, 162/ 255.0F, 0/255.0F);
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", newColor);
+            }
+            else
+            {
+                dataPoint.GetComponent<MeshRenderer>().material.SetColor("_Color", Color.red);
+            }
+
+            
+
             // Make dataPoint child of PointHolder object 
-            //dataPoint.transform.parent = DataPointParent.transform;
+            dataPoint.transform.parent = DataPointParent.transform;
 
             // Assigns original values to dataPointName
             string dataPointName =
                 dataList[i][xName] + " "
-                + dataList[i][yName] + " "
+                //+ dataList[i][yName] + " "
+                + "10 "
                 + dataList[i][zName];
 
             // Assigns name to the prefab
-            //dataPoint.transform.name = dataPointName;
+            dataPoint.transform.name = dataPointName;
         }
+
+        Instantiate(
+                    PointPrefab,
+                    new Vector3(16000, 100, 40000), //* plotScale,
+                    Quaternion.identity);
+        //Instantiate(
+          //          PointPrefab,
+            //        new Vector3(16000, 150, 41000), //* plotScale,
+              //      Quaternion.identity);
+        //Instantiate(
+          //          PointPrefab,
+            //        new Vector3(15000, 150, 41000), //* plotScale,
+              //      Quaternion.identity);
+        //Instantiate(
+          //          PointPrefab,
+            //        new Vector3(15000, 150, 40000), //* plotScale,
+              //      Quaternion.identity);
     }
 
     private float FindMaxValue(string columnName)
